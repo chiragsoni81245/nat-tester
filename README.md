@@ -112,21 +112,4 @@ This project is part of a deeper goal:
 
 > Build a **custom P2P transport layer** from scratch.
 
-It lays the foundation for:
-
-* NAT traversal
-* UDP hole punching
-* ICE-like connectivity logic
-* Relay fallback systems
-
----
-
-## Roadmap
-
-* [ ] p2p-tester (hole punching validation)
-* [ ] Relay server (TURN-lite)
-* [ ] ICE-lite implementation
-* [ ] Metrics & latency measurement
-* [ ] Visualization of connection paths
-
 ---

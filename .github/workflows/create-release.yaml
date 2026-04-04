@@ -28,11 +28,16 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - name: Build binary
+      - name: Build binaries
         run: |
           mkdir -p bin
           go mod tidy
-          go build -o bin/nat-tester ./cmd/nat-tester
+          # Build for Linux
+          GOOS=linux GOARCH=amd64 go build -o bin/nat-tester-linux-amd64 ./cmd/nat-tester
+          # Build for Windows
+          GOOS=windows GOARCH=amd64 go build -o bin/nat-tester-windows-amd64.exe ./cmd/nat-tester
+          # Build for Mac
+          GOOS=darwin GOARCH=arm64 go build -o bin/nat-tester-darwin-arm64 ./cmd/nat-tester
 
       - name: Verify build
         run: |
@@ -50,6 +55,9 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version }}
           name: ${{ github.event.inputs.version }}
-          files: bin/nat-tester
+          files: |
+            bin/nat-tester-linux-amd64
+            bin/nat-tester-darwin-arm64
+            bin/nat-tester-windows-amd64.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
